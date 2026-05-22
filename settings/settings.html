@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pixel Drop — Settings</title>
+
+    <!-- Base settings styles -->
+    <link rel="stylesheet" href="settings.css" />
+
+    <!-- Theme is injected dynamically by theme.js at runtime -->
+  </head>
+  <body>
+    <!-- ─── Header ───────────────────────────────────────────── -->
+    <header class="pd-header">
+      <div class="pd-header__logo">
+        <img
+          src="../assets/icons/icon32.png"
+          alt="Pixel Drop"
+          class="pd-header__icon"
+        />
+        <div class="pd-header__titles">
+          <span class="pd-header__title">Pixel Drop</span>
+          <span class="pd-header__subtitle">Settings</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- ─── Main Content ─────────────────────────────────────── -->
+    <main class="pd-main">
+      <!-- ─── Section: Appearance ───────────────────────────── -->
+      <section class="pd-section">
+        <h2 class="pd-section__title">Appearance</h2>
+
+        <div class="pd-setting">
+          <div class="pd-setting__info">
+            <label class="pd-setting__label" for="select-theme">Theme</label>
+            <p class="pd-setting__description">
+              Choose how Pixel Drop looks. Auto-detected from your OS on first
+              install.
+            </p>
+          </div>
+          <select class="pd-select" id="select-theme">
+            <option value="win11">Windows 11</option>
+            <option value="macos">macOS</option>
+            <option value="default">System Default</option>
+          </select>
+        </div>
+      </section>
+
+      <!-- ─── Section: Downloads ────────────────────────────── -->
+      <section class="pd-section">
+        <h2 class="pd-section__title">Downloads</h2>
+
+        <div class="pd-setting">
+          <div class="pd-setting__info">
+            <label class="pd-setting__label">Default Location</label>
+            <p class="pd-setting__description">
+              Images are saved to your browser's default download folder. Custom
+              subfolders are coming in a future update.
+            </p>
+          </div>
+          <span class="pd-badge">Phase 2</span>
+        </div>
+
+        <div class="pd-setting">
+          <div class="pd-setting__info">
+            <label class="pd-setting__label">Batch Renaming</label>
+            <p class="pd-setting__description">
+              Set a custom prefix for downloaded filenames. Coming in a future
+              update.
+            </p>
+          </div>
+          <span class="pd-badge">Phase 2</span>
+        </div>
+
+        <div class="pd-setting">
+          <div class="pd-setting__info">
+            <label class="pd-setting__label">Format Conversion</label>
+            <p class="pd-setting__description">
+              Convert images to a specific format on download. Coming in a
+              future update.
+            </p>
+          </div>
+          <span class="pd-badge">Phase 2</span>
+        </div>
+      </section>
+
+      <!-- ─── Section: About ────────────────────────────────── -->
+      <section class="pd-section">
+        <h2 class="pd-section__title">About</h2>
+
+        <div class="pd-setting">
+          <div class="pd-setting__info">
+            <label class="pd-setting__label">Version</label>
+            <p class="pd-setting__description">
+              Pixel Drop v0.1.0 — Phase 1 MVP
+            </p>
+          </div>
+        </div>
+
+        <div class="pd-setting">
+          <div class="pd-setting__info">
+            <label class="pd-setting__label">Permissions</label>
+            <p class="pd-setting__description">
+              Pixel Drop requests <strong>tabs</strong>,
+              <strong>downloads</strong>, <strong>storage</strong>, and
+              <strong>host_permissions</strong> to detect image tabs by their
+              content type. No data is collected or transmitted.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="settings.js" type="module"></script>
+  </body>
+</html>

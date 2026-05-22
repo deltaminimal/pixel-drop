@@ -1,0 +1,178 @@
+/* Pixel Drop — settings.css */
+/* Settings page layout and component styles. */
+/* Like popup.css, all colors reference CSS variables */
+/* from the active theme — no hardcoded colors. */
+
+/* ─── Reset & Base ───────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 420px;
+  font-family: var(--pd-font);
+  font-size: var(--pd-font-size-base);
+  color: var(--pd-text-primary);
+  background: var(--pd-bg-base);
+  overflow-x: hidden;
+  user-select: none;
+}
+
+/* ─── Header ─────────────────────────────────────────────────── */
+.pd-header {
+  display: flex;
+  align-items: center;
+  padding: var(--pd-space-md);
+  background: var(--pd-bg-surface);
+  border-bottom: 1px solid var(--pd-border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.pd-header__logo {
+  display: flex;
+  align-items: center;
+  gap: var(--pd-space-sm);
+}
+
+.pd-header__icon {
+  width: 24px;
+  height: 24px;
+  opacity: 0.9;
+}
+
+.pd-header__titles {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.pd-header__title {
+  font-size: var(--pd-font-size-base);
+  font-weight: 600;
+  color: var(--pd-text-primary);
+  line-height: 1;
+}
+
+.pd-header__subtitle {
+  font-size: var(--pd-font-size-sm);
+  color: var(--pd-text-secondary);
+  line-height: 1;
+}
+
+/* ─── Main Content ───────────────────────────────────────────── */
+.pd-main {
+  padding: var(--pd-space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--pd-space-md);
+}
+
+/* ─── Sections ───────────────────────────────────────────────── */
+.pd-section {
+  background: var(--pd-bg-surface);
+  border: 1px solid var(--pd-border);
+  border-radius: var(--pd-radius-lg);
+  overflow: hidden;
+}
+
+.pd-section__title {
+  font-size: var(--pd-font-size-sm);
+  font-weight: 600;
+  color: var(--pd-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: var(--pd-space-sm) var(--pd-space-md);
+  background: var(--pd-bg-elevated);
+  border-bottom: 1px solid var(--pd-border);
+}
+
+/* ─── Individual Settings Rows ───────────────────────────────── */
+.pd-setting {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--pd-space-md);
+  padding: var(--pd-space-md);
+  border-bottom: 1px solid var(--pd-border);
+  transition: var(--pd-transition);
+}
+
+/* Remove bottom border from last row in a section */
+.pd-setting:last-child {
+  border-bottom: none;
+}
+
+.pd-setting__info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pd-space-xs);
+  flex: 1;
+}
+
+.pd-setting__label {
+  font-size: var(--pd-font-size-base);
+  font-weight: 500;
+  color: var(--pd-text-primary);
+}
+
+.pd-setting__description {
+  font-size: var(--pd-font-size-sm);
+  color: var(--pd-text-secondary);
+  line-height: 1.5;
+}
+
+.pd-setting__description strong {
+  color: var(--pd-text-primary);
+  font-weight: 500;
+}
+
+/* ─── Select Dropdown ────────────────────────────────────────── */
+.pd-select {
+  appearance: none;
+  background: var(--pd-bg-elevated);
+  border: 1px solid var(--pd-border);
+  border-radius: var(--pd-radius-sm);
+  color: var(--pd-text-primary);
+  font-family: var(--pd-font);
+  font-size: var(--pd-font-size-sm);
+  padding: 6px var(--pd-space-lg) 6px var(--pd-space-sm);
+  cursor: pointer;
+  transition: var(--pd-transition);
+  min-width: 130px;
+
+  /* Custom dropdown arrow */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+}
+
+.pd-select:hover {
+  border-color: var(--pd-border-focus);
+}
+
+.pd-select:focus {
+  outline: none;
+  border-color: var(--pd-border-focus);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--pd-accent) 20%, transparent);
+}
+
+/* ─── Phase Badge ────────────────────────────────────────────── */
+.pd-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px var(--pd-space-sm);
+  background: var(--pd-bg-elevated);
+  border: 1px solid var(--pd-border);
+  border-radius: var(--pd-radius-sm);
+  font-size: var(--pd-font-size-sm);
+  font-weight: 500;
+  color: var(--pd-text-secondary);
+  white-space: nowrap;
+  flex-shrink: 0;
+}

@@ -1,0 +1,84 @@
+/* Pixel Drop — default.css */
+/* System default theme — clean, neutral, works everywhere. */
+/* Uses the browser/OS light or dark preference automatically */
+/* via the prefers-color-scheme media query. */
+
+/* ─── Light Mode (default) ─────────────────────────────────── */
+:root {
+  /* Background layers */
+  --pd-bg-base: #ffffff;
+  --pd-bg-surface: #f5f5f5;
+  --pd-bg-elevated: #ebebeb;
+
+  /* Accent color */
+  --pd-accent: #0066cc;
+  --pd-accent-hover: #0052a3;
+  --pd-accent-text: #ffffff;
+
+  /* Text */
+  --pd-text-primary: #1a1a1a;
+  --pd-text-secondary: #5a5a5a;
+  --pd-text-disabled: #aaaaaa;
+
+  /* Borders */
+  --pd-border: #d4d4d4;
+  --pd-border-focus: #0066cc;
+
+  /* Status colors */
+  --pd-success: #2e7d32;
+  --pd-success-bg: #e8f5e9;
+  --pd-warning: #e65100;
+  --pd-warning-bg: #fff3e0;
+  --pd-error: #c62828;
+  --pd-error-bg: #ffebee;
+
+  /* Surfaces */
+  --pd-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  --pd-radius: 8px;
+  --pd-radius-sm: 4px;
+  --pd-radius-lg: 12px;
+
+  /* Typography */
+  --pd-font: system-ui, -apple-system, sans-serif;
+  --pd-font-size-sm: 12px;
+  --pd-font-size-base: 14px;
+  --pd-font-size-lg: 16px;
+
+  /* Spacing */
+  --pd-space-xs: 4px;
+  --pd-space-sm: 8px;
+  --pd-space-md: 16px;
+  --pd-space-lg: 24px;
+
+  /* Transitions */
+  --pd-transition: all 0.15s ease;
+}
+
+/* ─── Dark Mode ─────────────────────────────────────────────── */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --pd-bg-base: #1a1a1a;
+    --pd-bg-surface: #242424;
+    --pd-bg-elevated: #2e2e2e;
+
+    --pd-accent: #4d9fff;
+    --pd-accent-hover: #6ab0ff;
+    --pd-accent-text: #000000;
+
+    --pd-text-primary: #f0f0f0;
+    --pd-text-secondary: #a0a0a0;
+    --pd-text-disabled: #555555;
+
+    --pd-border: #3a3a3a;
+    --pd-border-focus: #4d9fff;
+
+    --pd-success: #66bb6a;
+    --pd-success-bg: #1b3a1c;
+    --pd-warning: #ffa726;
+    --pd-warning-bg: #3a2800;
+    --pd-error: #ef5350;
+    --pd-error-bg: #3a1010;
+
+    --pd-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  }
+}

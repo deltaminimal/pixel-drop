@@ -1,0 +1,94 @@
+/* Pixel Drop — win11.css */
+/* Windows 11 Fluent Design theme. */
+/* Inspired by WinUI 3 / Fluent Design System: */
+/* acrylic surfaces, rounded corners, Segoe UI Variable, */
+/* and the Windows 11 blue accent palette. */
+
+/* ─── Light Mode (default) ─────────────────────────────────── */
+:root {
+  /* Background layers — mimics Mica/Acrylic layering */
+  --pd-bg-base: #f3f3f3;
+  --pd-bg-surface: #ffffff;
+  --pd-bg-elevated: #efefef;
+
+  /* Windows 11 default blue accent */
+  --pd-accent: #0067c0;
+  --pd-accent-hover: #1975c4;
+  --pd-accent-text: #ffffff;
+
+  /* Text — Fluent uses slightly warm neutrals */
+  --pd-text-primary: #1a1a1a;
+  --pd-text-secondary: #605e5c;
+  --pd-text-disabled: #a19f9d;
+
+  /* Borders — Fluent uses very subtle 1px borders */
+  --pd-border: #e0e0e0;
+  --pd-border-focus: #0067c0;
+
+  /* Status colors */
+  --pd-success: #107c10;
+  --pd-success-bg: #dff6dd;
+  --pd-warning: #ca5010;
+  --pd-warning-bg: #fed9cc;
+  --pd-error: #a4262c;
+  --pd-error-bg: #fde7e9;
+
+  /* Fluent uses generous rounding — 8px base, up to 16px for containers */
+  --pd-shadow: 0 4px 16px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+  --pd-radius: 8px;
+  --pd-radius-sm: 4px;
+  --pd-radius-lg: 16px;
+
+  /* Segoe UI Variable is the Win11 system font */
+  --pd-font: "Segoe UI Variable", "Segoe UI", system-ui, sans-serif;
+  --pd-font-size-sm: 12px;
+  --pd-font-size-base: 14px;
+  --pd-font-size-lg: 16px;
+
+  --pd-space-xs: 4px;
+  --pd-space-sm: 8px;
+  --pd-space-md: 16px;
+  --pd-space-lg: 24px;
+
+  /* Fluent animations are snappy and short */
+  --pd-transition: all 0.1s cubic-bezier(0.17, 0.17, 0, 1);
+
+  /* Win11 specific extras */
+  --pd-acrylic-bg: rgba(243, 243, 243, 0.85);
+  --pd-acrylic-blur: blur(20px);
+  --pd-reveal-border: rgba(0, 0, 0, 0.06);
+}
+
+/* ─── Dark Mode ─────────────────────────────────────────────── */
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Dark Mica-inspired surfaces */
+    --pd-bg-base: #202020;
+    --pd-bg-surface: #2c2c2c;
+    --pd-bg-elevated: #383838;
+
+    /* Win11 dark mode accent stays vivid */
+    --pd-accent: #60cdff;
+    --pd-accent-hover: #78d5ff;
+    --pd-accent-text: #000000;
+
+    --pd-text-primary: #ffffff;
+    --pd-text-secondary: #9d9d9d;
+    --pd-text-disabled: #5c5c5c;
+
+    --pd-border: #3d3d3d;
+    --pd-border-focus: #60cdff;
+
+    --pd-success: #6ccb5f;
+    --pd-success-bg: #1a3a18;
+    --pd-warning: #fc9c3b;
+    --pd-warning-bg: #3a2010;
+    --pd-error: #ff8585;
+    --pd-error-bg: #3a1515;
+
+    --pd-shadow: 0 4px 16px rgba(0, 0, 0, 0.5), 0 1px 3px rgba(0, 0, 0, 0.3);
+
+    --pd-acrylic-bg: rgba(32, 32, 32, 0.85);
+    --pd-reveal-border: rgba(255, 255, 255, 0.06);
+  }
+}

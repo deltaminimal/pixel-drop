@@ -1,0 +1,94 @@
+/* Pixel Drop — macos.css */
+/* macOS Human Interface Guidelines (HIG) inspired theme. */
+/* Mimics native macOS controls: SF Pro font stack, */
+/* vibrancy-inspired surfaces, and Apple's blue accent palette. */
+
+/* ─── Light Mode (default) ─────────────────────────────────── */
+:root {
+  /* Background layers — mimics NSVisualEffectView layering */
+  --pd-bg-base: #ececec;
+  --pd-bg-surface: #f6f6f6;
+  --pd-bg-elevated: #ffffff;
+
+  /* macOS default blue accent */
+  --pd-accent: #007aff;
+  --pd-accent-hover: #0063d1;
+  --pd-accent-text: #ffffff;
+
+  /* Text — Apple uses pure neutrals */
+  --pd-text-primary: #1c1c1e;
+  --pd-text-secondary: #6c6c70;
+  --pd-text-disabled: #aeaeb2;
+
+  /* Borders — macOS uses very faint hairline borders */
+  --pd-border: #d1d1d6;
+  --pd-border-focus: #007aff;
+
+  /* Status colors — matches macOS system colors */
+  --pd-success: #34c759;
+  --pd-success-bg: #e3f9e8;
+  --pd-warning: #ff9500;
+  --pd-warning-bg: #fff4e0;
+  --pd-error: #ff3b30;
+  --pd-error-bg: #ffe5e5;
+
+  /* macOS uses softer, more diffuse shadows */
+  --pd-shadow: 0 2px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.06);
+  --pd-radius: 8px;
+  --pd-radius-sm: 6px;
+  --pd-radius-lg: 12px;
+
+  /* SF Pro is the macOS system font — falls back gracefully */
+  --pd-font:
+    -apple-system, "SF Pro Text", "Helvetica Neue", system-ui, sans-serif;
+  --pd-font-size-sm: 12px;
+  --pd-font-size-base: 13px;
+  --pd-font-size-lg: 15px;
+
+  --pd-space-xs: 4px;
+  --pd-space-sm: 8px;
+  --pd-space-md: 16px;
+  --pd-space-lg: 24px;
+
+  /* macOS animations are smooth and slightly slower than Fluent */
+  --pd-transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* macOS specific extras */
+  --pd-vibrancy-bg: rgba(246, 246, 246, 0.82);
+  --pd-vibrancy-blur: blur(24px);
+  --pd-separator: rgba(0, 0, 0, 0.08);
+}
+
+/* ─── Dark Mode ─────────────────────────────────────────────── */
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Dark mode — matches macOS dark appearance */
+    --pd-bg-base: #1c1c1e;
+    --pd-bg-surface: #2c2c2e;
+    --pd-bg-elevated: #3a3a3c;
+
+    /* macOS dark mode accent stays the same blue */
+    --pd-accent: #0a84ff;
+    --pd-accent-hover: #409cff;
+    --pd-accent-text: #ffffff;
+
+    --pd-text-primary: #ffffff;
+    --pd-text-secondary: #ebebf5;
+    --pd-text-disabled: #48484a;
+
+    --pd-border: #38383a;
+    --pd-border-focus: #0a84ff;
+
+    --pd-success: #30d158;
+    --pd-success-bg: #1a3a22;
+    --pd-warning: #ff9f0a;
+    --pd-warning-bg: #3a2a00;
+    --pd-error: #ff453a;
+    --pd-error-bg: #3a1510;
+
+    --pd-shadow: 0 2px 12px rgba(0, 0, 0, 0.4), 0 1px 3px rgba(0, 0, 0, 0.3);
+
+    --pd-vibrancy-bg: rgba(28, 28, 30, 0.82);
+    --pd-separator: rgba(255, 255, 255, 0.08);
+  }
+}

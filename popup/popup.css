@@ -1,0 +1,196 @@
+/* Pixel Drop — popup.css */
+/* Core popup layout and component styles. */
+/* All colors and typography reference CSS variables defined */
+/* by the active theme — this file never hardcodes colors. */
+
+/* ─── Reset & Base ───────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 320px;
+  min-height: 160px;
+  font-family: var(--pd-font);
+  font-size: var(--pd-font-size-base);
+  color: var(--pd-text-primary);
+  background: var(--pd-bg-base);
+  border-radius: var(--pd-radius-lg);
+  overflow: hidden;
+  user-select: none;
+}
+
+/* ─── Header ─────────────────────────────────────────────────── */
+.pd-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--pd-space-sm) var(--pd-space-md);
+  background: var(--pd-bg-surface);
+  border-bottom: 1px solid var(--pd-border);
+}
+
+.pd-header__logo {
+  display: flex;
+  align-items: center;
+  gap: var(--pd-space-sm);
+}
+
+.pd-header__icon {
+  width: 20px;
+  height: 20px;
+  /* Fallback if icon file doesn't exist yet */
+  opacity: 0.9;
+}
+
+.pd-header__title {
+  font-size: var(--pd-font-size-lg);
+  font-weight: 600;
+  color: var(--pd-text-primary);
+  letter-spacing: -0.01em;
+}
+
+/* ─── Icon Button (settings gear) ───────────────────────────── */
+.pd-icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: var(--pd-radius-sm);
+  background: transparent;
+  color: var(--pd-text-secondary);
+  cursor: pointer;
+  transition: var(--pd-transition);
+}
+
+.pd-icon-btn:hover {
+  background: var(--pd-bg-elevated);
+  color: var(--pd-text-primary);
+}
+
+.pd-icon-btn:active {
+  opacity: 0.7;
+}
+
+/* ─── Main Content Area ──────────────────────────────────────── */
+.pd-main {
+  padding: var(--pd-space-md);
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ─── States ─────────────────────────────────────────────────── */
+.pd-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--pd-space-sm);
+  text-align: center;
+  width: 100%;
+}
+
+.pd-state--hidden {
+  display: none;
+}
+
+.pd-state__message {
+  font-size: var(--pd-font-size-base);
+  color: var(--pd-text-secondary);
+  line-height: 1.4;
+}
+
+/* ─── State Icons ────────────────────────────────────────────── */
+.pd-state__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+}
+
+.pd-state__icon--success {
+  background: var(--pd-success-bg);
+  color: var(--pd-success);
+}
+
+.pd-state__icon--warning {
+  background: var(--pd-warning-bg);
+  color: var(--pd-warning);
+}
+
+.pd-state__icon--error {
+  background: var(--pd-error-bg);
+  color: var(--pd-error);
+}
+
+/* ─── Spinner ────────────────────────────────────────────────── */
+.pd-spinner {
+  width: 28px;
+  height: 28px;
+  border: 3px solid var(--pd-border);
+  border-top: 3px solid var(--pd-accent);
+  border-radius: 50%;
+  animation: pd-spin 0.7s linear infinite;
+}
+
+@keyframes pd-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ─── Footer ─────────────────────────────────────────────────── */
+.pd-footer {
+  padding: var(--pd-space-sm) var(--pd-space-md) var(--pd-space-md);
+  background: var(--pd-bg-base);
+}
+
+/* ─── Primary Button ─────────────────────────────────────────── */
+.pd-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--pd-space-sm);
+  width: 100%;
+  padding: var(--pd-space-sm) var(--pd-space-md);
+  border: none;
+  border-radius: var(--pd-radius);
+  font-family: var(--pd-font);
+  font-size: var(--pd-font-size-base);
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--pd-transition);
+}
+
+.pd-btn--primary {
+  background: var(--pd-accent);
+  color: var(--pd-accent-text);
+}
+
+.pd-btn--primary:hover {
+  background: var(--pd-accent-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--pd-shadow);
+}
+
+.pd-btn--primary:active {
+  transform: translateY(0);
+  box-shadow: none;
+  opacity: 0.9;
+}
+
+.pd-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}

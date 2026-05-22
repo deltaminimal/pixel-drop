@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pixel Drop</title>
+
+    <!-- Base popup styles -->
+    <link rel="stylesheet" href="popup.css" />
+
+    <!-- Theme is injected dynamically by theme.js at runtime -->
+    <!-- Do not hardcode a theme link here -->
+  </head>
+  <body>
+    <!-- ─── Header ───────────────────────────────────────────── -->
+    <header class="pd-header">
+      <div class="pd-header__logo">
+        <img
+          src="../assets/icons/icon32.png"
+          alt="Pixel Drop"
+          class="pd-header__icon"
+        />
+        <span class="pd-header__title">Pixel Drop</span>
+      </div>
+      <button
+        class="pd-icon-btn"
+        id="btn-settings"
+        title="Settings"
+        aria-label="Open settings"
+      >
+        <!-- Gear icon (inline SVG — no external dependency) -->
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <circle cx="12" cy="12" r="3" />
+          <path
+            d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06
+                 a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09
+                 A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83
+                 l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09
+                 A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83
+                 l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09
+                 a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83
+                 l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09
+                 a1.65 1.65 0 0 0-1.51 1z"
+          />
+        </svg>
+      </button>
+    </header>
+
+    <!-- ─── Main Content ─────────────────────────────────────── -->
+    <main class="pd-main">
+      <!-- Idle state — shown before the user clicks Quick Save -->
+      <div class="pd-state" id="state-idle">
+        <p class="pd-state__message">
+          Ready to save all image tabs in this window.
+        </p>
+      </div>
+
+      <!-- Scanning state — shown while scanning + downloading -->
+      <div class="pd-state pd-state--hidden" id="state-loading">
+        <div class="pd-spinner" aria-label="Scanning tabs..."></div>
+        <p class="pd-state__message">Scanning tabs...</p>
+      </div>
+
+      <!-- Success state — shown after a successful save -->
+      <div class="pd-state pd-state--hidden" id="state-success">
+        <div class="pd-state__icon pd-state__icon--success">
+          <!-- Checkmark icon -->
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <polyline points="20 6 9 17 4 12" />
+          </svg>
+        </div>
+        <p class="pd-state__message" id="msg-success"></p>
+      </div>
+
+      <!-- None found state — no image tabs were detected -->
+      <div class="pd-state pd-state--hidden" id="state-none">
+        <div class="pd-state__icon pd-state__icon--warning">
+          <!-- Info icon -->
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="12" cy="12" r="10" />
+            <line x1="12" y1="8" x2="12" y2="12" />
+            <line x1="12" y1="16" x2="12.01" y2="16" />
+          </svg>
+        </div>
+        <p class="pd-state__message">No image tabs found in this window.</p>
+      </div>
+
+      <!-- Error state — something went wrong -->
+      <div class="pd-state pd-state--hidden" id="state-error">
+        <div class="pd-state__icon pd-state__icon--error">
+          <!-- X icon -->
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="12" cy="12" r="10" />
+            <line x1="15" y1="9" x2="9" y2="15" />
+            <line x1="9" y1="9" x2="15" y2="15" />
+          </svg>
+        </div>
+        <p class="pd-state__message" id="msg-error"></p>
+      </div>
+    </main>
+
+    <!-- ─── Footer / Actions ─────────────────────────────────── -->
+    <footer class="pd-footer">
+      <button class="pd-btn pd-btn--primary" id="btn-quick-save">
+        <!-- Download icon -->
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+          <polyline points="7 10 12 15 17 10" />
+          <line x1="12" y1="15" x2="12" y2="3" />
+        </svg>
+        Quick Save
+      </button>
+    </footer>
+
+    <script src="popup.js" type="module"></script>
+  </body>
+</html>

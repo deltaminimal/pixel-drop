@@ -1,0 +1,38 @@
+{
+  "manifest_version": 3,
+  "name": "Pixel Drop",
+  "version": "0.1.0",
+  "description": "Bulk-download images open in separate browser tabs with one click.",
+
+  "icons": {
+    "16": "assets/icons/icon16.png",
+    "32": "assets/icons/icon32.png",
+    "48": "assets/icons/icon48.png",
+    "128": "assets/icons/icon128.png"
+  },
+
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "Pixel Drop",
+    "default_icon": {
+      "16": "assets/icons/icon16.png",
+      "32": "assets/icons/icon32.png",
+      "48": "assets/icons/icon48.png",
+      "128": "assets/icons/icon128.png"
+    }
+  },
+
+  "background": {
+    "service_worker": "background/service-worker.js",
+    "type": "module"
+  },
+
+  "permissions": ["tabs", "downloads", "storage", "activeTab"],
+
+  "host_permissions": ["<all_urls>"],
+
+  "options_ui": {
+    "page": "settings/settings.html",
+    "open_in_tab": false
+  }
+}
