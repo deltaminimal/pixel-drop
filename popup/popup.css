@@ -14,16 +14,17 @@
 
 body {
   width: 320px;
-  min-height: 160px;
+  height: 220px;
   font-family: var(--pd-font);
   font-size: var(--pd-font-size-base);
   color: var(--pd-text-primary);
   background: var(--pd-bg-base);
-  border-radius: var(--pd-radius-lg);
   overflow: hidden;
   user-select: none;
   margin: 0;
   padding: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 /* ─── Header ─────────────────────────────────────────────────── */
@@ -34,6 +35,7 @@ body {
   padding: var(--pd-space-sm) var(--pd-space-md);
   background: var(--pd-bg-surface);
   border-bottom: 1px solid var(--pd-border);
+  flex-shrink: 0;
 }
 
 .pd-header__logo {
@@ -83,10 +85,11 @@ body {
 /* ─── Main Content Area ──────────────────────────────────────── */
 .pd-main {
   padding: var(--pd-space-md);
-  min-height: 80px;
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 }
 
 /* ─── States ─────────────────────────────────────────────────── */
@@ -154,6 +157,7 @@ body {
 .pd-footer {
   padding: var(--pd-space-sm) var(--pd-space-md) var(--pd-space-md);
   background: var(--pd-bg-base);
+  flex-shrink: 0;
 }
 
 /* ─── Primary Button ─────────────────────────────────────────── */
@@ -195,4 +199,52 @@ body {
   cursor: not-allowed;
   transform: none;
   box-shadow: none;
+}
+
+/* ─── Danger Button (Close Tabs) ────────────────────────────── */
+.pd-btn--danger {
+  background: #c0392b;
+  color: #ffffff;
+}
+
+.pd-btn--danger:hover {
+  background: #a93226;
+  transform: translateY(-1px);
+  box-shadow: var(--pd-shadow);
+}
+
+.pd-btn--danger:active {
+  transform: translateY(0);
+  box-shadow: none;
+  opacity: 0.9;
+}
+
+/* ─── Animated Button Transition ────────────────────────────── */
+.pd-footer {
+  position: relative;
+}
+
+.pd-btn {
+  transition:
+    var(--pd-transition),
+    opacity 0.25s ease,
+    transform 0.25s ease;
+}
+
+.pd-btn--hidden {
+  display: none;
+  opacity: 0;
+  transform: translateY(6px);
+}
+
+.pd-btn--visible {
+  display: flex;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.pd-btn--fading-out {
+  opacity: 0;
+  transform: translateY(-6px);
+  pointer-events: none;
 }

@@ -2,7 +2,7 @@
 // Handles all popup UI interactions:
 // - Initialising the theme on load
 // - Proactively scanning tabs on popup open
-// - Wiring up the Quick Save button
+// - Wiring up the Quick Save and Close Tabs buttons
 // - Communicating with the service worker
 // - Updating the UI state based on results
 
@@ -10,7 +10,8 @@ import { initTheme } from "../ui/theme.js";
 
 // ─── DOM References ───────────────────────────────────────────
 const btnQuickSave = document.getElementById("btn-quick-save");
-const btnSettings = document.getElementById("btn-settings");
+const btnCloseTabs = document.getElementById("btn-close-tabs");
+const btnCloseTabsLabel = document.getElementById("btn-close-tabs-label");
 
 const stateIdle = document.getElementById("state-idle");
 const stateLoading = document.getElementById("state-loading");
@@ -22,6 +23,67 @@ const msgIdle = document.getElementById("msg-idle");
 const msgSuccess = document.getElementById("msg-success");
 const msgError = document.getElementById("msg-error");
 const idleIcon = document.getElementById("idle-icon");
+
+// ─── App State ────────────────────────────────────────────────
+// Stores tabs from the last successful save so we can close
+// exactly those tabs — not a fresh scan
+let savedImageTabs = [];
+
+// ─── Button State Management ──────────────────────────────────
+
+/**
+ * Single source of truth for button visibility and availability.
+ * Call this whenever the button states need to change.
+ *
+ * @param {'scanning' | 'none_found' | 'ready' | 'downloading' | 'downloaded' | 'done'} phase
+ */
+function setButtonPhase(phase) {
+  // Always start from a known state
+  btnQuickSave.disabled = true;
+  btnCloseTabs.disabled = true;
+  btnQuickSave.classList.remove(
+    "pd-btn--hidden",
+    "pd-btn--fading-out",
+    "pd-btn--visible",
+  );
+  btnCloseTabs.classList.remove("pd-btn--fading-out", "pd-btn--visible");
+  btnCloseTabs.classList.add("pd-btn--hidden");
+
+  switch (phase) {
+    case "scanning":
+      // Quick Save visible but disabled — scanning in progress
+      btnQuickSave.disabled = true;
+      break;
+
+    case "none_found":
+      // Quick Save visible but disabled — nothing to save
+      btnQuickSave.disabled = true;
+      break;
+
+    case "ready":
+      // Quick Save visible and enabled — images found, ready to save
+      btnQuickSave.disabled = false;
+      break;
+
+    case "downloading":
+      // Quick Save visible but disabled — download in progress
+      btnQuickSave.disabled = true;
+      break;
+
+    case "downloaded":
+      // Quick Save hidden, Close Tabs visible and enabled
+      transitionButtons(btnQuickSave, btnCloseTabs);
+      btnCloseTabs.disabled = false;
+      break;
+
+    case "done":
+      // Back to initial state — Quick Save visible but disabled
+      // User must reopen popup to start fresh
+      btnQuickSave.disabled = true;
+      transitionButtons(btnCloseTabs, btnQuickSave);
+      break;
+  }
+}
 
 // ─── State Management ─────────────────────────────────────────
 
@@ -46,20 +108,47 @@ function showState(state) {
   }
 }
 
+/**
+ * Updates the loading message text.
+ * @param {string} text
+ */
+function setLoadingMessage(text) {
+  const el = document.querySelector("#state-loading .pd-state__message");
+  if (el) el.textContent = text;
+}
+
+// ─── Button Transition Animation ──────────────────────────────
+
+/**
+ * Animates the transition between two buttons in the footer.
+ * Fades the outgoing button up and out, then fades the
+ * incoming button up and in.
+ *
+ * @param {HTMLElement} outgoing - Button to hide
+ * @param {HTMLElement} incoming - Button to show
+ */
+function transitionButtons(outgoing, incoming) {
+  outgoing.classList.add("pd-btn--fading-out");
+
+  setTimeout(() => {
+    outgoing.classList.add("pd-btn--hidden");
+    outgoing.classList.remove("pd-btn--visible", "pd-btn--fading-out");
+    incoming.classList.remove("pd-btn--hidden");
+    incoming.classList.add("pd-btn--visible");
+  }, 250);
+}
+
 // ─── Proactive Tab Scanning ───────────────────────────────────
 
 /**
  * Scans tabs as soon as the popup opens and updates the
  * idle state to show how many image tabs are ready.
- * Disables the Quick Save button if none are found.
- *
- * This gives the user immediate feedback without having
- * to click anything first.
+ * Quick Save is only enabled if images are found.
  */
 async function scanOnOpen() {
-  // Show spinner while scanning
+  setButtonPhase("scanning");
   showState("loading");
-  msgLoading("Scanning tabs...");
+  setLoadingMessage("Scanning tabs...");
 
   try {
     const response = await chrome.runtime.sendMessage({
@@ -67,52 +156,37 @@ async function scanOnOpen() {
     });
 
     if (response.count === 0) {
-      // No images found — show none state and disable button
-      btnQuickSave.disabled = true;
+      setButtonPhase("none_found");
       showState("none");
     } else {
-      // Images found — update idle state with count
-      const label =
+      msgIdle.textContent =
         response.count === 1
           ? "1 image tab ready to save."
           : `${response.count} image tabs ready to save.`;
-
-      msgIdle.textContent = label;
-
-      // Ensure the icon is visible and styled correctly
       idleIcon.style.display = "flex";
-      btnQuickSave.disabled = false;
+      setButtonPhase("ready");
       showState("idle");
     }
   } catch (error) {
-    // If preview scan fails, fall back to a generic ready message
-    // so the user can still attempt a save
-    msgIdle.textContent = "Ready to save all image tabs.";
-    btnQuickSave.disabled = false;
+    // Fallback — show idle with button disabled if scan fails
+    msgIdle.textContent = "Ready to scan for image tabs.";
+    idleIcon.style.display = "flex";
+    setButtonPhase("none_found");
     showState("idle");
   }
-}
-
-/**
- * Updates the loading message text.
- * @param {string} text
- */
-function msgLoading(text) {
-  const el = document.querySelector("#state-loading .pd-state__message");
-  if (el) el.textContent = text;
 }
 
 // ─── Quick Save ───────────────────────────────────────────────
 
 /**
  * Handles the Quick Save button click.
- * Sends a message to the service worker and updates
- * the UI based on the response.
+ * Sends the QUICK_SAVE message to the service worker,
+ * then updates button phase and UI based on the result.
  */
 async function handleQuickSave() {
-  btnQuickSave.disabled = true;
+  setButtonPhase("downloading");
   showState("loading");
-  msgLoading("Downloading images...");
+  setLoadingMessage("Downloading images...");
 
   try {
     const response = await chrome.runtime.sendMessage({
@@ -122,47 +196,77 @@ async function handleQuickSave() {
 
     switch (response.status) {
       case "success":
+        savedImageTabs = response.imageTabs || [];
+
         msgSuccess.textContent =
           response.failed > 0
             ? `Saved ${response.succeeded} image${response.succeeded !== 1 ? "s" : ""}. ${response.failed} failed.`
             : `${response.succeeded} image${response.succeeded !== 1 ? "s" : ""} saved successfully!`;
+
         showState("success");
+
+        if (savedImageTabs.length > 0) {
+          btnCloseTabsLabel.textContent =
+            savedImageTabs.length === 1
+              ? "Close 1 image tab"
+              : `Close ${savedImageTabs.length} image tabs`;
+          setButtonPhase("downloaded");
+        }
         break;
 
       case "none_found":
+        setButtonPhase("none_found");
         showState("none");
         break;
 
       case "error":
         msgError.textContent =
           response.errors[0] || "Something went wrong. Please try again.";
+        setButtonPhase("none_found");
         showState("error");
         break;
 
       default:
+        setButtonPhase("none_found");
         showState("idle");
     }
   } catch (error) {
     msgError.textContent =
       "Could not connect to the extension. Try reloading it.";
+    setButtonPhase("none_found");
     showState("error");
   }
-
-  // Re-enable after a delay so user can run another save
-  setTimeout(() => {
-    btnQuickSave.disabled = false;
-  }, 2000);
 }
 
-// ─── Settings ─────────────────────────────────────────────────
+// ─── Close Tabs ───────────────────────────────────────────────
 
-function handleOpenSettings() {
-  chrome.runtime.openOptionsPage();
+/**
+ * Closes all tabs from the last successful save batch.
+ * After closing, resets to the initial disabled state —
+ * the user must reopen the popup to start a fresh session.
+ */
+async function handleCloseTabs() {
+  if (savedImageTabs.length === 0) return;
+
+  btnCloseTabs.disabled = true;
+
+  try {
+    const tabIds = savedImageTabs.map((tab) => tab.id);
+    await chrome.tabs.remove(tabIds);
+  } catch (error) {
+    // Tabs may have already been closed manually — fail silently
+  }
+
+  savedImageTabs = [];
+  msgIdle.textContent = "All done! Reopen to start a new session.";
+  idleIcon.style.display = "flex";
+  showState("idle");
+  setButtonPhase("done");
 }
 
 // ─── Event Listeners ──────────────────────────────────────────
 btnQuickSave.addEventListener("click", handleQuickSave);
-btnSettings.addEventListener("click", handleOpenSettings);
+btnCloseTabs.addEventListener("click", handleCloseTabs);
 
 // ─── Initialise ───────────────────────────────────────────────
 async function init() {

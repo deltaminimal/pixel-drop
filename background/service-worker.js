@@ -52,15 +52,18 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
  */
 async function handleQuickSave(options) {
   try {
-    // Step 1 — find all image tabs
     const imageTabs = await scanForImageTabs();
 
-    // If no image tabs were found, report back immediately
     if (imageTabs.length === 0) {
-      return { status: "none_found", succeeded: 0, failed: 0, errors: [] };
+      return {
+        status: "none_found",
+        succeeded: 0,
+        failed: 0,
+        errors: [],
+        imageTabs: [],
+      };
     }
 
-    // Step 2 — download them all
     const result = await downloadAllImages(imageTabs, options);
 
     return {
@@ -68,14 +71,15 @@ async function handleQuickSave(options) {
       succeeded: result.succeeded,
       failed: result.failed,
       errors: result.errors,
+      imageTabs: imageTabs, // ← pass tabs back to popup
     };
   } catch (error) {
-    // Something unexpected went wrong — report it back to the popup
     return {
       status: "error",
       succeeded: 0,
       failed: 0,
       errors: [error.message],
+      imageTabs: [],
     };
   }
 }
