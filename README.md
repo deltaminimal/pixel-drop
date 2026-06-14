@@ -88,7 +88,7 @@ byte-pack/
 │   └── themes/
 │       ├── win11.css           # Windows 11 Fluent Design theme
 │       ├── macos.css           # macOS HIG theme
-│       └── default.css         # System default theme
+│       └── default.css         # Default theme
 └── assets/
     └── icons/                  # Extension icons (16, 32, 48, 128px)
 ```
