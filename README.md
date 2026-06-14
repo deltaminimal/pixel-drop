@@ -1,8 +1,8 @@
-# Pixel Drop
+# Byte Pack
 
 > Bulk-download images open in separate browser tabs with one click.
 
-Pixel Drop is a Chrome and Microsoft Edge extension for designers, researchers,
+Byte Pack is a Chrome and Microsoft Edge extension for designers, researchers,
 and anyone who opens images in separate tabs and wants to save them all at once
 without right-clicking each one individually.
 
@@ -21,14 +21,14 @@ without right-clicking each one individually.
 
 ## Installation (Developer Mode)
 
-Pixel Drop is not yet published to the Chrome Web Store or Edge Add-ons.
+Byte Pack is not yet published to the Chrome Web Store or Edge Add-ons.
 To run it locally:
 
 1. Clone or download this repository
 2. Open Chrome and go to `chrome://extensions` or Edge and go to `edge://extensions`
 3. Enable **Developer Mode**
 4. Click **Load unpacked**
-5. Select the `pixel-drop/` folder
+5. Select the `byte-pack/` folder
 
 The extension will appear in your toolbar immediately.
 
@@ -37,7 +37,7 @@ The extension will appear in your toolbar immediately.
 ## How It Works
 
 1. Open images in separate tabs — direct image URLs like `domain.com/photo.jpg`
-2. Click the **Pixel Drop** icon in the toolbar
+2. Click the **Byte Pack** icon in the toolbar
 3. The popup shows how many image tabs were detected
 4. Click **Quick Save** — all images download to your default downloads folder
 
@@ -45,7 +45,7 @@ The extension will appear in your toolbar immediately.
 
 ## Permissions
 
-Pixel Drop requests the following permissions:
+Byte Pack requests the following permissions:
 
 | Permission         | Why                                                                                    |
 | ------------------ | -------------------------------------------------------------------------------------- |
@@ -63,7 +63,7 @@ All processing happens entirely within your browser.
 ## Project Structure
 
 ```
-pixel-drop/
+byte-pack/
 ├── manifest.json               # MV3 extension manifest
 ├── background/
 │   └── service-worker.js       # Orchestrates tab scanning and downloads

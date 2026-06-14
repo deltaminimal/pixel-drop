@@ -1,4 +1,4 @@
-// Pixel Drop — theme.js
+// Byte Pack — theme.js
 // Responsible for detecting the user's OS on first install,
 // applying the correct theme, and handling manual theme overrides
 // from the settings panel.
@@ -11,7 +11,7 @@ export const THEMES = {
 };
 
 // The storage key used to persist the user's theme choice
-const STORAGE_KEY = "pixeldrop_theme";
+const STORAGE_KEY = "bytepack_theme";
 
 /**
  * Detects the current operating system using the modern
@@ -91,13 +91,13 @@ export async function saveTheme(theme) {
  * Applies a theme by injecting the correct CSS file into
  * the current page (popup or settings).
  *
- * Any previously applied Pixel Drop theme is removed first
+ * Any previously applied Byte Pack theme is removed first
  * to avoid stacking multiple theme stylesheets.
  *
  * @param {string} theme - One of the THEMES values
  */
 export function applyTheme(theme) {
-  // Remove any existing Pixel Drop theme link tag
+  // Remove any existing Byte Pack theme link tag
   const existing = document.getElementById("pd-theme");
   if (existing) existing.remove();
 

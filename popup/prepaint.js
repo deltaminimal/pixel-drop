@@ -1,9 +1,9 @@
-// Pixel Drop — prepaint.js
+// Byte Pack — prepaint.js
 // Runs before any rendering to prevent theme flash.
 // Must be a separate file — inline scripts are blocked by MV3 CSP.
 
 (function () {
-  const STORAGE_KEY = "pixeldrop_theme";
+  const STORAGE_KEY = "bytepack_theme";
 
   const DARK_BG = {
     win11: "#202020",

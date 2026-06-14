@@ -1,13 +1,13 @@
-# Pixel Drop — Development Guide
+# Byte Pack — Development Guide
 
-This document explains the internal architecture of Pixel Drop, how the modules
+This document explains the internal architecture of Byte Pack, how the modules
 connect, the reasoning behind key technical decisions, and notes for future phases.
 
 ---
 
 ## Architecture Overview
 
-Pixel Drop follows a clean separation of concerns across four layers:
+Byte Pack follows a clean separation of concerns across four layers:
 
 ```
 UI Layer        popup/ + settings/          What the user sees and interacts with
@@ -64,7 +64,7 @@ and return `false` — the tab is simply skipped.
 
 Handles filename generation and download orchestration. Key decisions:
 
-- **Timestamps only** — filenames use the format `pixeldrop-YYYY-MM-DD_HH-MM-SS.mmm.ext`.
+- **Timestamps only** — filenames use the format `bytepack-YYYY-MM-DD_HH-MM-SS.mmm.ext`.
   Original URL filenames are ignored because they are typically auto-generated,
   encoded, or meaningless. Custom naming arrives in Phase 2.
 - **Extension detection** — the URL is still checked for a file extension so
@@ -222,7 +222,7 @@ When starting Phase 2, the following files are already stubbed and ready:
 1. Clone the repository
 2. Open `edge://extensions` or `chrome://extensions`
 3. Enable Developer Mode
-4. Click Load unpacked and select the `pixel-drop/` folder
+4. Click Load unpacked and select the `byte-pack/` folder
 5. After any code change, click the Reload button on the extension card
 
 ---
@@ -230,14 +230,16 @@ When starting Phase 2, the following files are already stubbed and ready:
 ## Future Design Considerations
 
 ### Brand Identity & Custom Accent Colors
+
 Currently the three themes use their respective platform default accent colors:
+
 - Win11: `#0067c0` (Windows 11 default blue)
 - macOS: `#007aff` (Apple default blue)
 - Default: `#0066cc` (neutral blue)
 
-Once the Pixel Drop brand identity is defined (logo, color palette), a full
+Once the Byte Pack brand identity is defined (logo, color palette), a full
 theming pass should be done across all three theme files to replace the platform
-defaults with Pixel Drop's own accent color. This should be done in one pass
+defaults with Byte Pack's own accent color. This should be done in one pass
 rather than incrementally to keep all themes consistent.
 
 CSS system accent color (`accent-color: auto`) was considered but not implemented
@@ -246,6 +248,7 @@ accent color value. Most users never change their system accent color anyway,
 so the platform defaults cover the vast majority of cases well.
 
 ### Icon Set
+
 The current icons in `assets/icons/` are placeholder PNGs generated during
 initial development. They should be replaced with a proper branded icon set
 at the same time as the accent color update, keeping the visual identity

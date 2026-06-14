@@ -1,12 +1,12 @@
-// Pixel Drop — downloader.js
+// Byte Pack — downloader.js
 // Responsible for orchestrating the download of images from
 // a list of tabs. Handles filename extraction, duplicate naming,
 // and reporting results back to the popup.
 
 /**
  * Generates a human-readable timestamped filename.
- * Format: pixeldrop-YYYY-MM-DD_HH-MM-SS.mmm.ext
- * Example: pixeldrop-2026-05-25_14-32-07.423.jpg
+ * Format: bytepack-YYYY-MM-DD_HH-MM-SS.mmm.ext
+ * Example: bytepack-2026-05-25_14-32-07.423.jpg
  *
  * The millisecond component ensures uniqueness even when
  * multiple images are downloaded in rapid succession.
@@ -43,14 +43,14 @@ function extractFilename(url) {
     ];
 
     if (ext && validExts.includes(ext)) {
-      return `pixeldrop-${timestamp}.${ext}`;
+      return `bytepack-${timestamp}.${ext}`;
     }
   } catch {
     // Malformed URL — fall through to default
   }
 
   // Default fallback — .jpg is the safest assumption
-  return `pixeldrop-${timestamp}.jpg`;
+  return `bytepack-${timestamp}.jpg`;
 }
 
 /**
